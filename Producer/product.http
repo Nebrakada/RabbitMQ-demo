@@ -1,0 +1,13 @@
+### send product
+POST http://localhost:8080/products
+Content-Type: application/json
+
+{
+  "name": "item 1",
+  "price": "900",
+  "category": "A"
+}
+
+### send X times random product
+GET http://localhost:8080/products/5
+Content-Type: application/json
