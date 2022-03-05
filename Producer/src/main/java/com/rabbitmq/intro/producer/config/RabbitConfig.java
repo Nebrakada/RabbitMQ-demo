@@ -34,6 +34,7 @@ public class RabbitConfig {
   @PostConstruct
   public void createSchema() {
     createSchemaForCreateProduct(amqpAdmin);
+    createSchemaForOrderPlaced(amqpAdmin);
   }
 
   private void createSchemaForCreateProduct(AmqpAdmin amqpAdmin) {
@@ -50,5 +51,27 @@ public class RabbitConfig {
         "",
         null);
     amqpAdmin.declareBinding(productAddedBinding);
+  }
+
+  private void createSchemaForOrderPlaced(AmqpAdmin amqpAdmin) {
+    FanoutExchange orderPlacedExchange = new FanoutExchange(rabbitProperties.getOrderPlaced().getExchangeName());
+    amqpAdmin.declareExchange(orderPlacedExchange);
+
+    Queue orderPlacedQueue;
+    Binding orderPlacedBinding;
+    for (String queueName : rabbitProperties.getOrderPlaced().getQueueNames()) {
+      orderPlacedQueue = new Queue(
+              queueName,
+              true, false, false);
+      amqpAdmin.declareQueue(orderPlacedQueue);
+
+      orderPlacedBinding = new Binding(
+              orderPlacedQueue.getName(),
+              Binding.DestinationType.QUEUE,
+              orderPlacedExchange.getName(),
+              "",
+              null);
+      amqpAdmin.declareBinding(orderPlacedBinding);
+    }
   }
 }

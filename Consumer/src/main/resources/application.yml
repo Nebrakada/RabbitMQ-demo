@@ -5,10 +5,13 @@ spring:
     username: guest
     password: guest
 
+# queue names for consumers
 rabbitmq:
-  product-added:
-    exchange-name: "x.products"
-    queue-name: "q.products"
+  product-added: "q.products"
+  order-placed:
+    sales: "q.sales"
+    warehouse: "q.warehouse"
+    logs: "q.logs"
 
 server:
   port: 8081

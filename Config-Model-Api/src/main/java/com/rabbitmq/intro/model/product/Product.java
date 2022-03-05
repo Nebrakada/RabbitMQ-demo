@@ -1,4 +1,4 @@
-package com.rabbitmq.intro.model;
+package com.rabbitmq.intro.model.product;
 
 import com.github.javafaker.Faker;
 import lombok.AllArgsConstructor;

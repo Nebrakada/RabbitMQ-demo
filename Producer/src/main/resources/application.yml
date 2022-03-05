@@ -9,3 +9,9 @@ rabbitmq:
   product-added:
     exchange-name: "x.products"
     queue-name: "q.products"
+  order-placed:
+    exchange-name: "x.orders"
+    queue-names:
+      - "q.sales"
+      - "q.warehouse"
+      - "q.logs"

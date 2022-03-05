@@ -12,5 +12,6 @@ import org.springframework.context.annotation.Configuration;
 public class RabbitProperties {
 
   private ProductAdded productAdded = new ProductAdded();
+  private OrderPlaced orderPlaced = new OrderPlaced();
 
 }

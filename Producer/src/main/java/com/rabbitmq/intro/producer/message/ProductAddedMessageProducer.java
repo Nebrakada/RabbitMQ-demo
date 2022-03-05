@@ -1,6 +1,6 @@
 package com.rabbitmq.intro.producer.message;
 
-import com.rabbitmq.intro.model.Product;
+import com.rabbitmq.intro.model.product.Product;
 import com.rabbitmq.intro.producer.config.RabbitProperties;
 import lombok.RequiredArgsConstructor;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
