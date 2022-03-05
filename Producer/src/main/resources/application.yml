@@ -1,0 +1,11 @@
+spring:
+  rabbitmq:
+    host: rabbitmq
+    port: 5672
+    username: guest
+    password: guest
+
+rabbitmq:
+  product-added:
+    exchange-name: "x.products"
+    queue-name: "q.products"
