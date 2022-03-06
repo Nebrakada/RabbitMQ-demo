@@ -1,5 +1,5 @@
 ### premium customer and category A order
-POST http://localhost:8080/categorized-orders HTTP/1.1
+POST http://localhost:8080/orders
 Content-Type: application/json
 
 {
@@ -14,3 +14,8 @@ Content-Type: application/json
     "customerSegment": "PREMIUM"
   }
 }
+
+
+### send X times random order
+GET http://localhost:8080/orders/5
+Content-Type: application/json

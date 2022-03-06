@@ -2,14 +2,11 @@ package com.rabbitmq.intro.model.order;
 
 import com.github.javafaker.Faker;
 import com.rabbitmq.intro.model.customer.Customer;
-import com.rabbitmq.intro.model.customer.CustomerSegment;
-import com.rabbitmq.intro.model.product.Category;
 import com.rabbitmq.intro.model.product.Product;
-import lombok.*;
-
-import java.math.BigDecimal;
-import java.util.List;
-import java.util.Random;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @AllArgsConstructor
 @NoArgsConstructor

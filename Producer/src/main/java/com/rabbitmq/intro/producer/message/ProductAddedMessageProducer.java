@@ -10,19 +10,20 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class ProductAddedMessageProducer {
 
-  private final RabbitTemplate rabbitTemplate;
-  private final RabbitProperties rabbitProperties;
+    private final RabbitTemplate rabbitTemplate;
+    private final RabbitProperties rabbitProperties;
 
-  /**
-   * Example of Direct Exchange message sending method
-   * routing key is ignored so might be empty (default exchange)
-   * @param product product is serialized to json thanks to Jackson2JsonMessageConverter in RabbitConfig class
-   * and send to exchange on broker using autoconfigured rabbitTemplate
-   */
-  public void send(Product product) {
-    rabbitTemplate.convertAndSend(
-        rabbitProperties.getProductAdded().getExchangeName(),
-        "",
-        product);
-  }
+    /**
+     * Example of Direct Exchange message sending method
+     * routing key is ignored so might be empty (default exchange)
+     *
+     * @param product product is serialized to json thanks to Jackson2JsonMessageConverter in RabbitConfig class
+     *                and send to exchange on broker using autoconfigured rabbitTemplate
+     */
+    public void send(Product product) {
+        rabbitTemplate.convertAndSend(
+                rabbitProperties.getProductAdded().getExchangeName(),
+                "",
+                product);
+    }
 }
