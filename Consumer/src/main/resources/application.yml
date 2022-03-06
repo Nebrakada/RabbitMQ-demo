@@ -12,6 +12,10 @@ rabbitmq:
     sales: "q.sales"
     warehouse: "q.warehouse"
     logs: "q.logs"
+  categorized-order:
+    category-a: "q.categoryA"
+    premium-customers: "q.premiumCustomers"
+    cheap-products-cat-c: "q.cheapProductsCategoryC"
 
 server:
   port: 8081

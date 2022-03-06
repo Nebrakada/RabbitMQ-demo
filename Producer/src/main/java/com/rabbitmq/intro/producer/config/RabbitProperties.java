@@ -13,5 +13,6 @@ public class RabbitProperties {
 
   private ProductAdded productAdded = new ProductAdded();
   private OrderPlaced orderPlaced = new OrderPlaced();
+  private CategorizedOrder categorizedOrder = new CategorizedOrder();
 
 }

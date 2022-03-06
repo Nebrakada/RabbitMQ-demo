@@ -15,3 +15,13 @@ rabbitmq:
       - "q.sales"
       - "q.warehouse"
       - "q.logs"
+  categorized-order:
+    exchange-name: "x.categorized-orders"
+    queue-names:
+      - "q.categoryA"
+      - "q.premiumCustomers"
+      - "q.cheapProductsCategoryC"
+    routing-keys:
+      - "A.#"
+      - "*.premium.*"
+      - "C.*.low"

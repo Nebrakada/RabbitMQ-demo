@@ -1,0 +1,89 @@
+# category A order
+POST http://localhost:8080/categorized-orders
+Content-Type: application/json
+
+{
+  "product": {
+    "name": "item 1",
+    "price": "900",
+    "category": "A"
+  },
+  "quantity": 2,
+  "customer": {
+    "name": "John Doe",
+    "customerSegment": "STANDARD"
+  }
+}
+
+### premium customer order
+POST http://localhost:8080/categorized-orders HTTP/1.1
+Content-Type: application/json
+
+{
+  "product": {
+    "name": "item 1",
+    "price": "500",
+    "category": "B"
+  },
+  "quantity": 2,
+  "customer": {
+    "name": "John Doe",
+    "customerSegment": "PREMIUM"
+  }
+}
+
+### premium customer and category A order
+POST http://localhost:8080/categorized-orders HTTP/1.1
+Content-Type: application/json
+
+{
+  "product": {
+    "name": "item 1",
+    "price": "20",
+    "category": "A"
+  },
+  "quantity": 2,
+  "customer": {
+    "name": "John Doe",
+    "customerSegment": "PREMIUM"
+  }
+}
+
+
+### cheap and category C order
+POST http://localhost:8080/categorized-orders HTTP/1.1
+Content-Type: application/json
+
+{
+  "product": {
+    "name": "item 1",
+    "price": "20",
+    "category": "C"
+  },
+  "quantity": 2,
+  "customer": {
+    "name": "John Doe",
+    "customerSegment": "PREMIUM"
+  }
+}
+
+### not consumed message
+POST http://localhost:8080/categorized-orders HTTP/1.1
+Content-Type: application/json
+
+{
+  "product": {
+    "name": "item 2",
+    "price": "20",
+    "category": "B"
+  },
+  "quantity": 2,
+  "customer": {
+    "name": "John Doe",
+    "customerSegment": "STANDARD"
+  }
+}
+
+### send X times random order
+GET http://localhost:8080/categorized-orders/2
+Content-Type: application/json
