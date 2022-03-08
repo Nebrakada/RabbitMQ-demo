@@ -7,8 +7,6 @@ services:
     container_name: "docker-management"
     restart: always
     hostname: docker-rabbitmq
-    volumes:
-      - "rabbitmq:/var/lib/rabbitmq/mnesia"
     ports:
       - "5672:5672"     # port przez ktory mozemy konfigurowac rabbitmq
       - "15672:15672"   # port poprzez ktory mamy udostepniony web manager
@@ -34,28 +32,6 @@ services:
     restart: always
     depends_on:
       - rabbitmq
+      - producer
     ports:
       - "8081:8081"
-
-#  consumer2:
-#    image: rabbit-consumer-1
-#    container_name: "consumer-2"
-#    # no need for build section - we use the same image as for first consumer
-#    restart: always
-#    depends_on:
-#      - rabbitmq
-#    ports:
-#      - "8082:8081"
-#
-#  consumer3:
-#    image: rabbit-consumer-1
-#    container_name: "consumer-3"
-#    # no need for build section - we use the same image as for first consumer
-#    restart: always
-#    depends_on:
-#      - rabbitmq
-#    ports:
-#      - "8083:8081"
-
-volumes:
-  rabbitmq:

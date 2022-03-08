@@ -37,6 +37,7 @@ public class RabbitConfig {
         createSchemaForCreateProduct(amqpAdmin);
         createSchemaForOrderPlaced(amqpAdmin);
         createSchemaForCategorizedOrder(amqpAdmin);
+        createSchemaForAddedProductWithDLX(amqpAdmin);
     }
 
     private void createSchemaForCreateProduct(AmqpAdmin amqpAdmin) {
@@ -115,4 +116,43 @@ public class RabbitConfig {
         }
     }
 
+    private void createSchemaForAddedProductWithDLX(AmqpAdmin amqpAdmin) {
+        DirectExchange productExchange = ExchangeBuilder
+                .directExchange(rabbitProperties.getProductWithDeadLetter().getProductExchangeName())
+                .durable(true)
+                .build();
+        amqpAdmin.declareExchange(productExchange);
+
+        String deadLetterExchangeName = rabbitProperties.getProductWithDeadLetter().getDeadLetterExchangeName();
+        FanoutExchange deadLetterExchange = ExchangeBuilder
+                .fanoutExchange(deadLetterExchangeName)
+                .durable(true)
+                .build();
+        amqpAdmin.declareExchange(deadLetterExchange);
+
+        Queue productWithErrorHandlingQueue = QueueBuilder
+                .durable(rabbitProperties.getProductWithDeadLetter().getProductQueueName())
+                .withArgument("x-dead-letter-exchange", deadLetterExchangeName)  // !! setup DLX
+//                 set TTL for messages in given queue, after which message will be discarded/routed to DLQ
+//                .ttl(rabbitProperties.getProductWithDeadLetter().getMessageTTL())
+                .build();
+        amqpAdmin.declareQueue(productWithErrorHandlingQueue);
+
+        Queue deadLetterQueue = QueueBuilder
+                .durable(rabbitProperties.getProductWithDeadLetter().getDeadLetterQueueName())
+                .build();
+        amqpAdmin.declareQueue(deadLetterQueue);
+
+        Binding productWithErrorHandlingBinding = BindingBuilder
+                .bind(productWithErrorHandlingQueue)
+                .to(productExchange)
+                .with("");
+        amqpAdmin.declareBinding(productWithErrorHandlingBinding);
+
+        Binding deadLetterBinding = BindingBuilder
+                .bind(deadLetterQueue)
+                .to(deadLetterExchange);
+        amqpAdmin.declareBinding(deadLetterBinding);
+
+    }
 }

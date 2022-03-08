@@ -11,14 +11,13 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/products")
 @CrossOrigin(origins = "*", maxAge = 3600)
 public class ProductController {
 
     private final ProductAddedMessageProducer productAddedMessageProducer;
 
     @CrossOrigin
-    @PostMapping(value = "", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/products", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> addProduct(@RequestBody ProductAddedDTO productAddedDTO) {
 
         System.out.println("sending product to broker: " + productAddedDTO.toProduct());
@@ -35,6 +34,16 @@ public class ProductController {
             System.out.println("sending product to broker: " + product);
             productAddedMessageProducer.send(product);
         }
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @CrossOrigin
+    @PostMapping(value = "/products-dl", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> addProductWithErrorHandling(@RequestBody ProductAddedDTO productAddedDTO) {
+
+        System.out.println("sending product to broker: " + productAddedDTO.toProduct());
+        productAddedMessageProducer.sendWithErrorHandling(productAddedDTO.toProduct());
+
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

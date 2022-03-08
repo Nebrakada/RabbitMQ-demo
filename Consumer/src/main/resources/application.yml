@@ -4,6 +4,16 @@ spring:
     port: 5672
     username: guest
     password: guest
+    listener:
+      simple:
+        prefetch: 1   # !!! prefetch
+  #      acknowledge-mode: manual # !!! ACK mode
+        retry:
+          enabled: true
+          max-attempts: 3
+          multiplier: 2
+          initial-interval: 1000
+
 
 # queue names for consumers
 rabbitmq:
@@ -16,6 +26,9 @@ rabbitmq:
     category-a: "q.categoryA"
     premium-customers: "q.premiumCustomers"
     cheap-products-cat-c: "q.cheapProductsCategoryC"
+  product-with-dead-letter:
+    product-queue-name: "q.dl-products"
+    dead-letter-queue: "q.dl-products.dlq"
 
 server:
   port: 8081

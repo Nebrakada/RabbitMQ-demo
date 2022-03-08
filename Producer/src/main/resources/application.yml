@@ -25,3 +25,9 @@ rabbitmq:
       - "A.#"
       - "*.premium.*"
       - "C.*.low"
+  product-with-dead-letter:
+    product-exchange-name: "x.dl-products"
+    product-queue-name: "q.dl-products"
+    dead-letter-exchange-name: "x.dl-products.dlx"
+    dead-letter-queue-name: "q.dl-products.dlq"
+    message-TTL: 2000

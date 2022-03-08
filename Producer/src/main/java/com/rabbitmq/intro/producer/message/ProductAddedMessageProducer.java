@@ -26,4 +26,15 @@ public class ProductAddedMessageProducer {
                 "",
                 product);
     }
+
+
+    public void sendWithErrorHandling(Product product) {
+        String productExchangeName = rabbitProperties.getProductWithDeadLetter().getProductExchangeName();
+        System.out.println("producer sending to exchange: " + productExchangeName);
+        rabbitTemplate.convertAndSend(
+                productExchangeName,
+                "",
+                product);
+
+    }
 }
